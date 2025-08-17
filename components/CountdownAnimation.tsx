@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -7,6 +7,7 @@ import Animated, {
   withTiming,
   runOnJS,
   Easing,
+  useDerivedValue,
 } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
@@ -26,6 +27,10 @@ export function CountdownAnimation({ duration, onComplete, color }: CountdownAni
   const strokeWidth = 8;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
+
+  const remainingSeconds = useDerivedValue(() => {
+    return Math.ceil((1 - progress.value) * (duration / 1000));
+  });
 
   useEffect(() => {
     progress.value = withTiming(1, {
@@ -77,6 +82,9 @@ export function CountdownAnimation({ duration, onComplete, color }: CountdownAni
             transform={`rotate(-90 ${size / 2} ${size / 2})`}
           />
         </Svg>
+        <Animated.Text style={[styles.countdownText, { color: color }]}>
+          {remainingSeconds.value}
+        </Animated.Text>
       </View>
     </Animated.View>
   );
@@ -102,5 +110,11 @@ const styles = StyleSheet.create({
   },
   svg: {
     position: 'absolute',
+  },
+  countdownText: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    zIndex: 1,
   },
 });

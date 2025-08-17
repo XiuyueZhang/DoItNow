@@ -228,9 +228,11 @@ export default function HomeScreen() {
 
   const renderGoalInput = () => (
     <View style={styles.goalInputContainer}>
-      <View style={styles.headerSection}>
-        <Text style={styles.appTitle}>Do It Now</Text>
-        <Text style={styles.subtitle}>Tell me what you want to accomplish, and I'll help you start immediately</Text>
+      <View style={styles.characterSection}>
+        <View style={styles.characterContainer}>
+          <Text style={styles.character}>🙋‍♂️</Text>
+        </View>
+        <Text style={styles.questionText}>What would you like to accomplish?</Text>
       </View>
       
       <View style={styles.inputSection}>
@@ -248,7 +250,7 @@ export default function HomeScreen() {
         <ActionButton
           onPress={handleGoalSubmit}
           color="#14B8A6"
-          text={isLoadingBreakdown ? "Analyzing..." : "Break It Down"}
+          text={isLoadingBreakdown ? "Analyzing..." : "Let's Do This"}
           size="small"
           icon={<Send size={20} color="#ffffff" />}
           style={{ ...styles.submitButton, opacity: goalInput.trim() ? 1 : 0.5 }}
@@ -423,21 +425,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
   },
-  headerSection: {
+  characterSection: {
     alignItems: 'center',
     marginBottom: 60,
   },
-  appTitle: {
-    fontSize: 36,
-    fontWeight: '800',
-    color: '#111827',
-    marginBottom: 16,
+  characterContainer: {
+    backgroundColor: '#F3F4F6',
+    borderRadius: 60,
+    width: 120,
+    height: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 30,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 6,
   },
-  subtitle: {
-    fontSize: 18,
-    color: '#6B7280',
+  character: {
+    fontSize: 48,
+  },
+  questionText: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#111827',
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 32,
   },
   inputSection: {
     alignItems: 'center',
